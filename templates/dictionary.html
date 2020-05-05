@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vector Space Model</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/display_style1.css') }}" type = "text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+  <body class="w3-black">
+    <br>
+          <section class="search-sec">
+            <div class="container">
+                <form action="{{ url_for('upload') }}" method="POST" class="searchbar">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-3 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt search_input" placeholder="Enter query" name="query"/>
+                                </div>
+                                  <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt search_input" placeholder="alpha" name="alpha"/>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                  <button type="submit" class="btn btn-danger wrn-btn" style="width: 100%;">Search</button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+      <br>
+    <div class="w3-container w3-gray w3-large w3-padding-32">
+        <p><b>{{num_docs}} Documents retrieved in: {{time}}</b></p>
+        <p>Query = "{{quer}}"</p>
+    </div>
+    <div class="w3-container w3-padding-large w3-black">
+      <div class="w3-row-padding w3-grayscale">
+        {% for key, value in dictionary.items() %}
+        <div class="w3-col m4 w3-margin-bottom">
+          <div class="w3-white">
+            <div class="w3-container w3-padding-32">
+              <h3 class="w3-text-black"><b>{{key}}</b></h3>
+              <h6 class="w3-text-black"><b>Document Similarily</b></h6>
+              <p class="w3-text-black">{{value[1]}}</p>
+              <button onclick="myFunction()" class="w3-button w3-black w3-padding-medium w3-opacity w3-hover-opacity-off" id = "{{key}}" value="{{value[0]}}">Click to read!</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+    <div id="menu" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom">
+          <div class="w3-container w3-black w3-display-container">
+            <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large w3-gray">x</span>
+            <div class="dic1">
+                <h1>Starters</h1>
+            </div>
+            </div>
+            <div class="w3-container dic w3-text-black">
+                <p><b></b></p>
+            </div>
+        </div>
+      </div>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>
+          function myFunction() {
+            var x = document.getElementById('menu');
+            x.style.display='block';
+            }
+            $("button").click(function() {
+            var fired_button = $(this).val();
+            $('.dic p').text(fired_button);
+            $('.dic1 h1').text($(this).attr("id"));
+            });
+
+        
+      </script>
+  </body>
+</html>
